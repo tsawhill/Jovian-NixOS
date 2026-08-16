@@ -176,6 +176,12 @@ buildLinux (args // rec {
     RTW89_8851BU = module;
     RTW89_USB = module;
 
+    # HDMI-CEC. This gates drivers/media/cec/{i2c,platform,usb}, so without it
+    # no adapter driver is even a visible symbol and only the CEC core builds:
+    # the cros-ec-cec platform device on the Steam Machine enumerates but binds
+    # nothing. Opening the menu is enough, autoModules builds the adapters.
+    MEDIA_CEC_SUPPORT = yes;
+
     # Jovian: fix fallout from the vendor-set options
     DRM_AMD_DC_SI = lib.mkForce (option no);
     DRM_HYPERV = lib.mkForce (option no);
