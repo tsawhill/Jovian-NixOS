@@ -30,5 +30,8 @@ in
     # Deliberately no fbcon=rotate:1: that is for the Steam Deck's portrait
     # panel and would rotate the console on a landscape display.
     boot.kernelPackages = mkDefault pkgs.jovianPackages.linuxPackages;
+
+    # Ensures modules missing from the vendor kernel don't cause a generation build failure.
+    jovian.workarounds.ignoreMissingKernelModules = mkDefault true;
   };
 }
